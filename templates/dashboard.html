@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#pattern">Pattern</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+    </div>
+    <div class="main">
+        <section id="home">
+            <h1>home</h1>
+            <p>Ithe graphs show honar</p>
+        </section>
+        <section id="pattern">
+            <h1>pattern</h1>
+            <p>Ithe pattern recognition</p>
+        </section>
+        <section id="about">
+            <h1>about</h1>
+            <p>some info about technical analysis library</p>
+        </section>
+    </div>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
