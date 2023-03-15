@@ -3,10 +3,12 @@ import csv
 import talib
 import yfinance as yf
 import pandas
-from flask import Flask, escape, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, jsonify
 from patterns import candlestick_patterns
 from companies import company_name
 import datetime
+import time
+import threading
 
 app = Flask(__name__)
 
@@ -55,7 +57,20 @@ def screener():
 
 
 @app.route('/refresh')
-def refresh():
+def refreshData():
+    # code to refresh the dataset goes here
+    
+    return jsonify({'status': 'success'})
+
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+
+@app.route('/execute_function')
+def execute_function():
+    # Execute your Python function here
     with open('datasets/symbols.csv') as f:
         for line in f:
             if "," not in line:
@@ -64,7 +79,9 @@ def refresh():
             data = yf.download(symbol, start="2022-01-01",
                                end=datetime.date.today())
             data.to_csv('datasets/daily/{}.csv'.format(symbol))
-    return render_template('refresh.html')
+    # return the refreshed data in JSON format
+    result = "Function executed successfully"
+    return jsonify(result)
 
 
 if __name__ == '__main__':
