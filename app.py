@@ -2,20 +2,49 @@ import os
 import csv
 import talib
 import yfinance as yf
-import pandas
+import pandas as pd
 from flask import Flask, request, render_template, jsonify
 from patterns import candlestick_patterns
 from companies import company_name
 import datetime
+import plotly.graph_objs as go
+import plotly.io as pio
+from io import BytesIO
+import matplotlib.pyplot as plt
+import base64
+import mplfinance as mpf
 import time
 import threading
 
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    html_string=""
+    if request.method == 'POST':
+        stock_symbol = request.form['filename']
+        # code to plot the graph for the selected company
+
+        # Read data from CSV file
+        filename = stock_symbol+".NS.csv"
+        df = pd.read_csv('datasets/daily/{}'.format(filename))
+
+        # Generate candlestick chart
+        df = df.iloc[::-1]
+        fig = go. Figure(data=[go.Candlestick(x=df.index,
+                                            open=df['Open'], high=df['High'],
+                                            low=df['Low'], close=df['Close'])]
+                        )
+        fig.update_layout(xaxis_rangeslider_visible=False, template="plotly_dark")
+        fig.update_layout(yaxis_title=filename, xaxis_title="Date")
+        fig.update_yaxes(type="log")
+        fig.show()
+        # Save chart as image
+        html_string = pio.to_html(fig, full_html=False)
+
+    return render_template('index.html',company_name=company_name, plot=html_string)
+
 
 
 @app.route('/screener')
@@ -31,7 +60,7 @@ def screener():
 
     if pattern:
         for filename in os.listdir('datasets/daily'):
-            df = pandas.read_csv('datasets/daily/{}'.format(filename))
+            df = pd.read_csv('datasets/daily/{}'.format(filename))
             pattern_function = getattr(talib, pattern)
             var = filename.split('.')[0]
             symbol = var+".NS"
@@ -59,7 +88,7 @@ def screener():
 @app.route('/refresh')
 def refreshData():
     # code to refresh the dataset goes here
-    
+
     return jsonify({'status': 'success'})
 
 
@@ -80,7 +109,7 @@ def execute_function():
                                end=datetime.date.today())
             data.to_csv('datasets/daily/{}.csv'.format(symbol))
     # return the refreshed data in JSON format
-    result = "Function executed successfully"
+    result = "Data is updated"
     return jsonify(result)
 
 

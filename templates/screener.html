@@ -2,11 +2,57 @@
 <html>
 <head>
     <title>Pattern recognition</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+
+    <style>
+        body {
+        background-color:  #8ecae6;
+      }
+        h1 {
+            color: #16123f;
+        }
+        tr {
+            color: #16123f;
+        }
+        #execute-function {
+          margin-left: 100px;
+          margin-top: 3px;
+        }
+        .custom-navbar {
+          background-color:  #219ebc; /* Your desired color code */
+          
+        }
+    </style>
 </head>
 <body>
+    <div class="main">
+      <!-- Add the navbar markup -->
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/screener">Pattern recognition</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+              </li>
+              <li>
+                <button id="execute-function">Refresh Dataset</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     <section id="pattern">
-        <h1>Technical Scanner</h1>
+        <h1>Pattern recognition</h1>
             <form>
                 <select name="pattern">
                     <option value="">-- Select a Pattern --</option>
@@ -45,5 +91,6 @@
                 {% endfor %}
             </table>
     </section>
+</div>
 </body>
 </html>
