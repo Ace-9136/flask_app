@@ -9,42 +9,38 @@ from companies import company_name
 import datetime
 import plotly.graph_objs as go
 import plotly.io as pio
-from io import BytesIO
-import matplotlib.pyplot as plt
-import base64
-import mplfinance as mpf
-import time
-import threading
+
 
 app = Flask(__name__)
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    html_string=""
+    html_string = ""
     if request.method == 'POST':
         stock_symbol = request.form['filename']
         # code to plot the graph for the selected company
 
-        # Read data from CSV file
+        # Read data from CSV file and parse date column as dates
         filename = stock_symbol+".NS.csv"
-        df = pd.read_csv('datasets/daily/{}'.format(filename))
+        df = pd.read_csv('datasets/daily/{}'.format(filename),
+                         parse_dates=['Date'])
 
         # Generate candlestick chart
         df = df.iloc[::-1]
-        fig = go. Figure(data=[go.Candlestick(x=df.index,
-                                            open=df['Open'], high=df['High'],
-                                            low=df['Low'], close=df['Close'])]
+        fig = go.Figure(data=[go.Candlestick(x=df['Date'],
+                                             open=df['Open'], high=df['High'],
+                                             low=df['Low'], close=df['Close'])]
                         )
-        fig.update_layout(xaxis_rangeslider_visible=False, template="plotly_dark")
+        fig.update_layout(xaxis_rangeslider_visible=False,
+                          template="plotly_dark")
         fig.update_layout(yaxis_title=filename, xaxis_title="Date")
         fig.update_yaxes(type="log")
         fig.show()
         # Save chart as image
         html_string = pio.to_html(fig, full_html=False)
 
-    return render_template('index.html',company_name=company_name, plot=html_string)
-
+    return render_template('index.html', company_name=company_name, plot=html_string)
 
 
 @app.route('/screener')
@@ -72,7 +68,7 @@ def screener():
                 """
                 if last != 0:
                     print(filename)
-"""
+                """
                 if last > 0:
                     stocks[symbol][pattern] = 'bullish'
                 elif last < 0:
@@ -83,13 +79,6 @@ def screener():
                 print('failed on filename: ', filename)
 
     return render_template('screener.html', candlestick_patterns=candlestick_patterns, stocks=stocks, pattern=pattern)
-
-
-@app.route('/refresh')
-def refreshData():
-    # code to refresh the dataset goes here
-
-    return jsonify({'status': 'success'})
 
 
 @app.route('/about')
