@@ -40,10 +40,10 @@
             <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/screener">Pattern recognition</a>
+            <a class="nav-link" aria-current="page" href="/screener">Pattern recognition</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
+            <a class="nav-link" aria-current="page" href="/about">About</a>
           </li>
           <li>
             <button id="execute-function">Refresh Dataset</button>
@@ -52,14 +52,15 @@
       </div>
     </div>
   </nav>
+  <h1>Candlestick Plotter</h1>
         <div id="spinner" style="display:none;">
           
         <img src="static\css\Pulse-1s-200px.gif" alt="Loading Animation">
           <span class="sr-only">Loading...</span>
         </div>
         <form method="post" action="/">
-          <label for="filename">Select a file:</label>
           <select id="filename" name="filename">
+            <option value="">-- Select company --</option>
               {% for key, value in company_name.items() %}
                   <option value="{{ key }}">{{ value }}</option>
               {% endfor %}
@@ -72,7 +73,7 @@
       {% endif %}
         </body>
         <script>
-          // Get a reference to the button element
+          
 var executeButton = document.getElementById('execute-function');
 
 // Add a click event listener to the button
