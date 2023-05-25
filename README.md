@@ -35,9 +35,9 @@ To run the Flask Stock Analysis Application locally, follow the steps below:/
 ## Usage
 Once you have the Flask application running, you can access the following endpoints:
 
-* Candlestick Graph Plotting: To plot a candlestick graph, navigate to http://localhost:5000/ in your browser. Enter the necessary information, such as the stock symbol, time period, and any additional parameters required. Click on the "Plot" button to visualize the candlestick graph.
+* Candlestick Graph Plotting: To plot a candlestick graph, navigate to http://localhost:5000/ in your browser. Select the company name from the dropdown menu and click the submit button. This will redirect you to a new page on which the graph on the selected company is displayed for the duration of approx 1 year.
 
-* Pattern Detection: To find patterns in a list of stocks, go to http://localhost:5000/screener in your browser. Input the list of stock symbols or upload a CSV file containing the stock data. Click on the "Find Patterns" button to perform the analysis and display any detected patterns.
+* Pattern Detection: To find patterns in a list of stocks, go to http://localhost:5000/screener in your browser. Input the name of pattern from the dropdown and click scan button. This will get you the name of companies in which the pattern has been found within last 10 days.
 ## Contributing
 Contributions are welcome! If you encounter any issues or have suggestions for improvements, please submit an issue or a pull request.
 
