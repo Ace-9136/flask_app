@@ -26,12 +26,14 @@ To run the Flask Stock Analysis Application locally, follow the steps below:/
 4. Install the required dependencies:
     ```bash
     pip install -r requirements.txt
+5. Install the technical analysis library:\
+        [Click here](https://blog.quantinsti.com/install-ta-lib-python/) for guide to download TA-lib.
 
-5. Start the Flask application:
+6. Start the Flask application:
     ```bash
     python app.py
 
-6. Open your browser and navigate to http://localhost:5000 to access the application.
+7. Open your browser and navigate to http://localhost:5000 to access the application.
 ## Usage
 Once you have the Flask application running, you can access the following endpoints:
 
