@@ -1,6 +1,5 @@
 flask
 pandas
 yfinance
-TA-lib
-Matplotlib
+matplotlib
 plotly
